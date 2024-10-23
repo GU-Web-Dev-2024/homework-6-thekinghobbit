@@ -10,14 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HW6 - JQuery</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .stopwatch p {
-            display: inline-block;
-            margin: 0;
-            padding: 0 5px;
-            font-size: 2em;
-        }
-    </style>
+    
     <script>
         window.onload = function () {
             var seconds = "00";
@@ -77,7 +70,7 @@
         <h1>Stopwatch</h1>
         <h2>Vanilla JavaScript Stopwatch</h2>
         <div class="stopwatch">
-            <p id="tens">00</p>:<p id="seconds">00</p>
+            <p id="timer"><span id="seconds">00</span>:<span id="tens">00</span></p>
         </div>
         <button id="button-start">Start</button>
         <button id="button-stop">Stop</button>
