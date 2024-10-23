@@ -21,14 +21,21 @@
             var $buttonStop = $('#button-stop');
             var $buttonReset = $('#button-reset');
             var interval;
+            var timer = $("#timer");
+            timer.addClass("timer-background");
+            $(".timer-background").css("background-color", "#7a7373");
+        
     
             $buttonStart.on('click', function () {
                 clearInterval(interval);
                 interval = setInterval(startTimer, 10);
+                $(".timer-background").css("background-color", "#a58603");
+                
             });
     
             $buttonStop.on('click', function () {
                 clearInterval(interval);
+                $(".timer-background").css("background-color", "#c73b2b");
             });
     
             $buttonReset.on('click', function () {
@@ -37,7 +44,10 @@
                 seconds = "00";
                 $appendTens.html(tens);
                 $appendSeconds.html(seconds);
+                $(".timer-background").css("background-color", "#7a7373");
+
             });
+
     
             function startTimer() {
                 tens++;
