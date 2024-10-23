@@ -10,9 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HW6 - JQuery</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
     <script>
-        window.onload = function () {
+        $(document).ready(function () {
             var seconds = "00";
             var tens = "00";
             var $appendTens = $("#tens");
@@ -22,22 +21,66 @@
             var $buttonReset = $('#button-reset');
             var interval;
             var timer = $("#timer");
+
+            // Add class to the timer paragraph
             timer.addClass("timer-background");
-            $(".timer-background").css("background-color", "#7a7373");
-        
-    
+
+            // Add class to buttons
+            $buttonStart.addClass("btn");
+            $buttonStop.addClass("btn");
+            $buttonReset.addClass("btn");
+
+            // Style buttons using a single object literal
+            $(".btn").css({
+                "background-color": "#4CAF50",
+                "border": "none",
+                "color": "white",
+                "padding": "15px 32px",
+                "text-align": "center",
+                "text-decoration": "none",
+                "display": "inline-block",
+                "font-size": "16px",
+                "margin": "4px 2px",
+                "cursor": "pointer",
+                "border-radius": "12px"
+            });
+
+            // Center the buttons
+            $(".btn").parent().css({
+                "text-align": "center"
+            });
+
+            // Center everything vertically
+            $(".wrapper").css({
+                "display": "flex",
+                "flex-direction": "column",
+                "justify-content": "center",
+                "align-items": "center",
+                "height": "100vh"
+            });
+            $(".stopwatch").css({
+                "font-size": "50px"
+            });
+
+            $(".timer-background").css({
+                "background-color": "#7a7373",
+                "border-radius": "12px",
+            });
+
             $buttonStart.on('click', function () {
                 clearInterval(interval);
                 interval = setInterval(startTimer, 10);
                 $(".timer-background").css("background-color", "#a58603");
-                
             });
-    
+
             $buttonStop.on('click', function () {
                 clearInterval(interval);
+                if($("#tens").text() == "00" && $("#seconds").text() == "00"){
+                    return;
+                }
                 $(".timer-background").css("background-color", "#c73b2b");
             });
-    
+
             $buttonReset.on('click', function () {
                 clearInterval(interval);
                 tens = "00";
@@ -45,33 +88,31 @@
                 $appendTens.html(tens);
                 $appendSeconds.html(seconds);
                 $(".timer-background").css("background-color", "#7a7373");
-
             });
 
-    
             function startTimer() {
                 tens++;
-    
+
                 if (tens < 9) {
                     $appendTens.html("0" + tens);
                 }
-    
+
                 if (tens > 9) {
                     $appendTens.html(tens);
                 }
-    
+
                 if (tens > 99) {
                     seconds++;
                     $appendSeconds.html("0" + seconds);
                     tens = 0;
                     $appendTens.html("0" + 0);
                 }
-    
+
                 if (seconds > 9) {
                     $appendSeconds.html(seconds);
                 }
             }
-        }
+        });
     </script>
 </head>
 
@@ -82,10 +123,12 @@
         <div class="stopwatch">
             <p id="timer"><span id="seconds">00</span>:<span id="tens">00</span></p>
         </div>
-        <button id="button-start">Start</button>
-        <button id="button-stop">Stop</button>
-        <button id="button-reset">Reset</button>
-
+        <div class="button-container">
+            <button id="button-start">Start</button>
+            <button id="button-stop">Stop</button>
+            <button id="button-reset">Reset</button>
+        </div>
+    </div>
 </body>
 
 </html>
