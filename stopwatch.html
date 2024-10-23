@@ -8,6 +8,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Danfo&family=Frijole&display=swap" rel="stylesheet">
     <title>HW6 - JQuery</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -20,6 +23,7 @@
             var $buttonStop = $('#button-stop');
             var $buttonReset = $('#button-reset');
             var interval;
+            var opacityInterval;
             var timer = $("#timer");
 
             // Add class to the timer paragraph
@@ -42,8 +46,11 @@
                 "font-size": "16px",
                 "margin": "4px 2px",
                 "cursor": "pointer",
-                "border-radius": "12px"
-            });
+                "border-radius": "12px",
+                // "border-radius": "0px 1000px 0px 1000px",
+                "--mask": 
+                    "linear-gradient(#000 0 0) 50%/calc(100% - 46.25px) calc(100% - 46.25px) no-repeat,radial-gradient(farthest-side,#000 98%,#0000) 0 0/50px 50px round",
+                });
 
             // Center the buttons
             $(".btn").parent().css({
@@ -53,10 +60,20 @@
             // Center everything vertically
             $(".wrapper").css({
                 "display": "flex",
+                "width": "60vw",
                 "flex-direction": "column",
                 "justify-content": "center",
                 "align-items": "center",
-                "height": "100vh"
+                "border": "10px solid black",
+                "padding": "20px",
+                "margin": "auto",
+                "background-image": "url('https://media1.tenor.com/m/txhyUY5Owj0AAAAd/mud-bubbles.gif')",
+                "background-size": "cover",
+                "font-family": "Frijole, serif",
+            });
+            $(".wrapper").parent().css({
+                "background-image": "url('https://media1.tenor.com/m/6ONkxipMD64AAAAC/explosion-boom.gif')",
+                "background-size": "cover",
             });
             $(".stopwatch").css({
                 "font-size": "50px"
@@ -67,14 +84,22 @@
                 "border-radius": "12px",
             });
 
+            function animateOpacity() {
+                $(".timer-background").animate({ opacity: 0.8 }, 1000).animate({ opacity: 1.0 }, 1000);
+            }
+
             $buttonStart.on('click', function () {
                 clearInterval(interval);
+                clearInterval(opacityInterval);
                 interval = setInterval(startTimer, 10);
+                opacityInterval = setInterval(animateOpacity, 2000);
                 $(".timer-background").css("background-color", "#a58603");
             });
 
             $buttonStop.on('click', function () {
                 clearInterval(interval);
+                clearInterval(opacityInterval);
+                $(".timer-background").css("opacity", 1.0);
                 if($("#tens").text() == "00" && $("#seconds").text() == "00"){
                     return;
                 }
@@ -83,10 +108,12 @@
 
             $buttonReset.on('click', function () {
                 clearInterval(interval);
+                clearInterval(opacityInterval);
                 tens = "00";
                 seconds = "00";
                 $appendTens.html(tens);
                 $appendSeconds.html(seconds);
+                $(".timer-background").css("opacity", 1.0);
                 $(".timer-background").css("background-color", "#7a7373");
             });
 
